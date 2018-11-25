@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Javascript Baloon Chase:</title>
+</head>
+
+<script>
+	window.onload = init;
+	document.onmousemove = mouseMove;
+	let myImg = null;
+	let mouseX = 0;
+	let mouseY = 0;
+	let myTimer = null;
+
+	function init() {
+		myImg = document.getElementById('baloon');
+		myImg.style.position = 'absolute';
+		myImg.style.left = '200px';
+		myImg.style.top = '200px';
+	}// End function init
+
+function startBaloon() {
+	if (!myTimer) {
+		myTimer = setInterval(moveBaloon, 10);
+	}// End if (!myTimer)
+}// End function startBaloon
+
+function stopBaloon() {
+	clearInterval(myTimer);
+	myTimer = null;
+}// End function stopBaloon
+
+	function mouseMove(evt) {
+		document.getElementById('x').innerHTML = mouseX = evt.clientX;
+		document.getElementById('y').innerHTML = mouseY = evt.clientY;
+	}// End function mouseMove
+
+	function moveBaloon() {
+
+		let moveX = 1;
+		let moveY = 1;
+// Create left/right motion
+		if (parseInt(myImg.style.left) > mouseX) {
+			myImg.style.left = parseInt(myImg.style.left) - moveX + 'px';
+			myImg.src = 'img/leftRedBaloon.jpg';
+		}
+
+		if (parseInt(myImg.style.left) < mouseX) {
+			myImg.style.left = parseInt(myImg.style.left) + moveX + 'px';
+			myImg.src = 'img/rightRedBaloon.jpg';
+
+		}
+
+// Create up/down motion
+		if (parseInt(myImg.style.top) > mouseY) {
+			myImg.style.top = parseInt(myImg.style.top) - moveY + 'px';
+		}
+		if (parseInt(myImg.style.top) < mouseY) {
+			myImg.style.top = parseInt(myImg.style.top) + moveY + 'px';
+		}
+
+
+	}// End function moveBaloon
+
+</script>
+
+
+<body>
+	<input type='button' id='startButton' onclick='startBaloon()' value='start'>
+	<input type='button' id='stopButton' onclick='stopBaloon()' value='stop'>
+
+	<p id='x'></p>
+	<p id='y'></p>
+
+
+	<img src='img/redbaloon.jpg' width='100' height='100' id='baloon'>
+</body>
